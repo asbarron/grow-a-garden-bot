@@ -2,7 +2,7 @@ name: Scheduled Stock Check
 
 on:
   schedule:
-    - cron: '*/5 * * * *' # every 5 minutes UTC
+    - cron: '*/5 * * * *' # Every 5 minutes UTC
 
 jobs:
   run-stock-checker:
@@ -17,9 +17,8 @@ jobs:
           password: ${{ secrets.GHCR_TOKEN }}
 
       - name: Debug docker image name
-        run: |
-            echo "Image: ghcr.io/${{ secrets.GHCR_USERNAME }}/grow-a-garden-bot:latest"
-        
+        run: echo "Image: ghcr.io/${{ secrets.GHCR_USERNAME }}/grow-a-garden-bot:latest"
+
       - name: Run container
         env:
           TARGET_URL: ${{ secrets.TARGET_URL }}
@@ -34,4 +33,3 @@ jobs:
             -e TELEGRAM_TOKEN \
             -e TELEGRAM_CHAT_ID \
             ghcr.io/${{ secrets.GHCR_USERNAME }}/grow-a-garden-bot:latest
-      
