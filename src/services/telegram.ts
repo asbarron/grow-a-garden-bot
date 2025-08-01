@@ -1,5 +1,5 @@
 // src/services/telegram.ts
-import fetch from 'node-fetch'
+import { fetch } from 'undici'
 
 export async function sendTelegramAlert(message: string) {
   const token = process.env.TELEGRAM_TOKEN
