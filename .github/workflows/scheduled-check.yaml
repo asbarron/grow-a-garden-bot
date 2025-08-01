@@ -17,22 +17,14 @@ jobs:
           username: ${{ secrets.GHCR_USERNAME }}
           password: ${{ secrets.GHCR_TOKEN }}
 
-      - name: Debug docker image name
+      - name: Create .env file
         run: |
-         echo "Image: ghcr.io/${{ secrets.GHCR_USERNAME }}/grow-a-garden-bot:latest"
-
+          echo "TARGET_URL=${{ secrets.TARGET_URL }}" >> .env
+          echo "FLAG_KEYWORDS='${{ secrets.FLAG_KEYWORDS }}'" >> .env
+          echo "TELEGRAM_TOKEN=${{ secrets.TELEGRAM_TOKEN }}" >> .env
+          echo "TELEGRAM_CHAT_ID=${{ secrets.TELEGRAM_CHAT_ID }}" >> .env
+        
       - name: Run container
-        env:
-          TARGET_URL: ${{ secrets.TARGET_URL }}
-          FLAG_KEYWORDS: "${{ secrets.FLAG_KEYWORDS }}"
-          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
-          echo "Running container as ${{ secrets.GHCR_USERNAME }}"
-          docker run --rm \
-            -e TARGET_URL="${{ secrets.TARGET_URL }}" \
-            -e FLAG_KEYWORDS="${{ secrets.FLAG_KEYWORDS }}" \
-            -e TELEGRAM_TOKEN="${{ secrets.TELEGRAM_TOKEN }}" \
-            -e TELEGRAM_CHAT_ID="${{ secrets.TELEGRAM_CHAT_ID }}" \
-            ghcr.io/${{ secrets.GHCR_USERNAME }}/grow-a-garden-bot:latest
+          docker run --rm --env-file .env ghcr.io/${{ secrets.GHCR_USERNAME }}/grow-a-garden-bot:latest
         
