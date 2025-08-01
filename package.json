@@ -1,0 +1,25 @@
+{
+  "name": "grow-a-garden-bot",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "description": "Stock tracker + alert bot for Grow a Garden",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "nodemon --watch src --ext ts --exec ts-node src/index.ts",
+    "start": "ts-node src/index.ts",
+    "build": "tsc"
+  },
+  "author": "avabarron",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^17.2.1",
+    "node-fetch": "^3.3.2",
+    "playwright": "^1.54.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.6",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}
