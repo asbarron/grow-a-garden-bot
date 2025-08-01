@@ -17,7 +17,8 @@ jobs:
           password: ${{ secrets.GHCR_TOKEN }}
 
       - name: Debug docker image name
-        run: echo "Image: ghcr.io/${{ secrets.GHCR_USERNAME }}/grow-a-garden-bot:latest"
+        run: |
+         echo "Image: ghcr.io/${{ secrets.GHCR_USERNAME }}/grow-a-garden-bot:latest"
 
       - name: Run container
         env:
