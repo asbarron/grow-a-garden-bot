@@ -7,8 +7,8 @@ WORKDIR /app
 # Copy package files first for better caching
 COPY package*.json ./
 
-# Install all deps (Playwright already installed in base image)
-RUN npm install
+# Install all depps
+RUN npm ci
 
 # Copy the rest of your app
 COPY . .
