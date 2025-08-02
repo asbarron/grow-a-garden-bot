@@ -29,7 +29,6 @@ jobs:
           docker run --rm --env-file .env ghcr.io/${{ secrets.GHCR_USERNAME }}/grow-a-garden-bot:latest
 
       - name: Self-ping workflow to re-run
-        if: github.event_name == 'schedule'
         run: |
           curl -X POST \
             -H "Accept: application/vnd.github+json" \
