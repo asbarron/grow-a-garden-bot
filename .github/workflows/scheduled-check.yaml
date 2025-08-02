@@ -28,6 +28,9 @@ jobs:
         run: |
           docker run --rm --env-file .env ghcr.io/${{ secrets.GHCR_USERNAME }}/grow-a-garden-bot:latest
 
+      - name: Wait before next run
+        run: sleep 300 # 5 mins in seconds
+
       - name: Self-ping workflow to re-run
         run: |
           curl -X POST \
