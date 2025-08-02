@@ -27,14 +27,3 @@ jobs:
       - name: Run container
         run: |
           docker run --rm --env-file .env ghcr.io/${{ secrets.GHCR_USERNAME }}/grow-a-garden-bot:latest
-
-      - name: Wait before next run
-        run: sleep 300 # 5 mins in seconds
-
-      - name: Self-ping workflow to re-run
-        run: |
-          curl -X POST \
-            -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer ${{ secrets.SELF_TRIGGER_PAT }}" \
-            https://api.github.com/repos/${{ github.repository }}/actions/workflows/scheduled-check.yaml/dispatches \
-            -d '{"ref":"main"}'
