@@ -1,12 +1,12 @@
 # 🌱 Grow a Garden Stock Checker Bot
 
-This project monitors [Grow A Garden](https://www.roblox.com/games/126884695634066/Grow-a-Garden) item availability by scraping stock data from [arcaiuz.com/grow-a-garden-stock](https://arcaiuz.com/grow-a-garden-stock). When flagged items are detected, it sends a notification via a [Telegram bot](https://telegram.me/BotFather).
+This project monitors [Grow A Garden](https://www.roblox.com/games/126884695634066/Grow-a-Garden) item availability by scraping stock data from [growagardenstock](https:/growagardenstock.com). When flagged items are detected, it sends a notification via a [Telegram bot](https://telegram.me/BotFather).
 
 ---
 
 ## 🚀 Features
 
-- Scrapes live stock data from `https://arcaiuz.com/grow-a-garden-stock`
+- Scrapes live stock data from `https://growagardenstock.com`
 - Filters based on customizable `FLAG_KEYWORDS`
 - Sends real-time Telegram alerts when target items are in stock
 - Scheduled to run every 5 minutes via GitHub Actions
@@ -56,4 +56,4 @@ These keywords are used to identify in-stock alerts (customizable via `FLAG_KEYW
 
 - This tool is **not affiliated** with Roblox or Grow A Garden.
 - Use it for personal purposes only.
-- The site `arcaiuz.com` must be functional for scraping to work.
+- The site `growagardenstock.com` must be functional for scraping to work.

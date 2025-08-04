@@ -25,30 +25,24 @@ export async function scrapeShopData(): Promise<Record<string, Set<string>>> {
   let found = false
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
-    const cards = await page.$$('.stock-item-card')
-    if (cards.length > 0) {
+    const elements = await page.$$('span.text-base.font-medium')
+    if (elements.length > 0) {
       found = true
       break
     }
-    console.log(`⏳ Waiting for stock... attempt ${attempt}/${maxRetries}`)
+    console.log(`⏳ Waiting for items... attempt ${attempt}/${maxRetries}`)
     await page.waitForTimeout(delay)
   }
 
   if (!found) {
-    console.warn('⚠️ No stock found after retrying for 30 seconds.')
+    console.warn('⚠️ No items found after retrying for 30 seconds.')
     await browser.close()
     return { 'No Items Found': new Set() }
   }
 
   const items = new Set<string>(
-    await page.$$eval('.stock-item-card', cards => {
-      return cards.map(card => {
-        const rawSpan = card.querySelector('span.text-white')
-        if (!rawSpan) return 'Unknown'
-
-        const fullText = rawSpan.textContent?.trim() || ''
-        return fullText.replace(/\s*\d+x?$/i, '').trim()
-      })
+    await page.$$eval('span.text-base.font-medium', spans => {
+      return spans.map(span => span.textContent?.trim() || 'Unknown')
     })
   )
 
