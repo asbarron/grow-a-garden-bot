@@ -23,6 +23,11 @@ export function isTrackableItem(item: string): boolean {
 }
 
 export async function shouldNotify(item: string): Promise<boolean> {
+  if (!isTrackableItem(item)) {
+    // Always notify non-trackable items (e.g. seeds)
+    return true
+  }
+
   const timestamps = await readTimestamps()
   const now = Date.now()
 
