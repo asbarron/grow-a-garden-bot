@@ -40,3 +40,10 @@ jobs:
             --env-file .env \
             -v "$(pwd)/cache:/app/cache" \
             ghcr.io/${{ secrets.GHCR_USERNAME }}/grow-a-garden-bot:latest
+      
+      - name: Upload itemTimestamps.json as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: item-timestamps
+          path: cache/itemTimestamps.json
+          retention-days: 1
