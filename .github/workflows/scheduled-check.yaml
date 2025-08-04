@@ -42,7 +42,7 @@ jobs:
           docker run --rm \
             --env-file .env \
             -v "$(pwd)/cache:/app/cache" \
-            ghcr.io/${{ secrets.GHCR_USERNAME }}/grow-a-garden-bot:latest
+            ghcr.io/asbarron/grow-a-garden-bot:latest
       
       - name: Upload itemTimestamps.json as artifact
         uses: actions/upload-artifact@v4
