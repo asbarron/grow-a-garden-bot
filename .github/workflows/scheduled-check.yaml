@@ -8,6 +8,7 @@ on:
 jobs:
   run-stock-checker:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
 
     steps:
       - name: Log in to GitHub Container Registry
