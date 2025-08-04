@@ -17,7 +17,10 @@ jobs:
           registry: ghcr.io
           username: ${{ secrets.GHCR_USERNAME }}
           password: ${{ secrets.GHCR_TOKEN }}
-
+      
+      - name: Remove old .env file
+        run: rm -f .env
+        
       - name: Create .env file
         run: |
           echo "TARGET_URL=${{ secrets.TARGET_URL }}" >> .env
