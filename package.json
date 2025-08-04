@@ -12,7 +12,9 @@
   "author": "avabarron",
   "license": "MIT",
   "dependencies": {
+    "@types/fs-extra": "^11.0.4",
     "dotenv": "^17.2.1",
+    "fs-extra": "^11.3.0",
     "undici": "^7.13.0"
   },
   "devDependencies": {

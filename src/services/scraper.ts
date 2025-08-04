@@ -1,22 +1,10 @@
 // src/services/scraper.ts
-import { chromium } from 'playwright'
+import { createBrowserContext } from '../utils/browser'
+import { shouldNotify } from '../utils/itemTracker'
+import { FLAG_KEYWORDS } from '../utils/constants'
 
 export async function scrapeShopData(): Promise<Record<string, Set<string>>> {
-  const browser = await chromium.launch({
-    headless: true,
-    args: [
-      '--no-sandbox',
-      '--disable-blink-features=AutomationControlled',
-      '--disable-dev-shm-usage'
-    ]
-  })
-
-  const context = await browser.newContext({
-    userAgent:
-      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115 Safari/537.36',
-    viewport: { width: 1280, height: 800 }
-  })
-
+  const context = await createBrowserContext()
   const page = await context.newPage()
   await page.goto(process.env.TARGET_URL!, { waitUntil: 'domcontentloaded' })
 
@@ -35,19 +23,28 @@ export async function scrapeShopData(): Promise<Record<string, Set<string>>> {
   }
 
   if (!found) {
-    console.warn('⚠️ No items found after retrying for 30 seconds.')
-    await browser.close()
+    console.warn('⚠️ No items found after retrying.')
+    await context.close()
     return { 'No Items Found': new Set() }
   }
 
   const items = new Set<string>(
-    await page.$$eval('span.text-base.font-medium', spans => {
-      return spans.map(span => span.textContent?.trim() || 'Unknown')
-    })
+    await page.$$eval('span.text-base.font-medium', (spans) =>
+      spans.map((span) => span.textContent?.trim() || 'Unknown')
+    )
   )
 
-  await browser.close()
+  const flaggedItems = new Set<string>()
+  for (const item of items) {
+    if (FLAG_KEYWORDS.includes(item) && (await shouldNotify(item))) {
+      flaggedItems.add(item)
+    }
+  }
+
+  await context.close()
+
   return {
-    'Live Shop Items': items
+    'Live Shop Items': items,
+    'Flagged Items': flaggedItems
   }
 }
