@@ -1,6 +1,6 @@
 import { scrapeShopData } from './services/scraper'
 import { sendTelegramAlert } from './services/telegram'
-import { shouldNotify } from './utils/itemTracker'
+import { shouldNotify, isTrackableItem } from './utils/itemTracker'
 
 export async function runStockChecker() {
   const flaggedItems = await scrapeShopData()
@@ -10,13 +10,18 @@ export async function runStockChecker() {
   let alertsSent = 0
 
   for (const item of flaggedItems) {
+    if (!isTrackableItem(item)) {
+      console.log(`🚫 Skipping untracked item: ${item}`)
+      continue
+    }
+
     if (await shouldNotify(item)) {
       const msg = `🌱 *${item}* is now in stock!`
       console.log('🚨 Sending alert:', msg)
       await sendTelegramAlert(msg)
       alertsSent++
     } else {
-      console.log(`⏳ Skipping ${item} (already notified recently)`)
+      console.log(`⏳ Skipping recently seen item: ${item}`)
     }
   }
 

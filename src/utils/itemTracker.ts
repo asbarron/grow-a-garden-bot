@@ -18,6 +18,10 @@ async function writeTimestamps(timestamps: ItemTimestamps): Promise<void> {
   await fs.writeJSON(ITEM_TIMESTAMP_FILE, timestamps, { spaces: 2 })
 }
 
+export function isTrackableItem(item: string): boolean {
+  return THREE_HOUR_ITEMS.has(item) || ONE_HOUR_ITEMS.test(item)
+}
+
 export async function shouldNotify(item: string): Promise<boolean> {
   const timestamps = await readTimestamps()
   const now = Date.now()
