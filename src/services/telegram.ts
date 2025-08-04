@@ -25,6 +25,7 @@ export async function sendTelegramAlert(message: string) {
     const err = await response.text()
     console.error('❌ Telegram send error:', err)
   } else {
+    console.log(`📨 Sending to CHAT_ID: ${chatId}`)
     console.log('📨 Telegram alert sent!')
   }
 }
