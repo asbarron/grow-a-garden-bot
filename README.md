@@ -21,7 +21,7 @@ These should be set as GitHub Actions secrets:
 | Variable           | Description                                                              |
 |--------------------|--------------------------------------------------------------------------|
 | `TELEGRAM_TOKEN`   | Telegram bot token from [@BotFather](https://telegram.me/BotFather)      |
-| `TELEGRAM_CHAT_ID` | Your personal or group chat ID to receive alerts                         |
+| `CHAT_ID` | Your personal or group chat ID to receive alerts                         |
 | `TARGET_URL`       | URL to scrape (default: `https://arcaiuz.com/grow-a-garden-stock`)       |
 | `FLAG_KEYWORDS`    | Comma-separated list of keywords to look for. MUST be quoted.                             |
 | `GHCR_TOKEN`       | GitHub Container Registry access token                                   |
