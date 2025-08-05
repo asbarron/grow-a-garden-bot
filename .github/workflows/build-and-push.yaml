@@ -44,4 +44,5 @@ jobs:
           push: true
           tags: |
             ghcr.io/asbarron/grow-a-garden-bot:latest
+          no-cache: true
 
