@@ -39,6 +39,7 @@ jobs:
 
       - name: Run container with cache mounted
         run: |
+          docker pull ghcr.io/asbarron/grow-a-garden-bot:latest
           docker run --rm \
             --env-file .env \
             -v "$(pwd)/cache:/app/cache" \
