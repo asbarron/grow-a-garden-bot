@@ -1,4 +1,3 @@
-// src/utils/itemTracker.ts
 import fs from 'fs-extra'
 import { ITEM_TIMESTAMP_FILE, THREE_HOUR_ITEMS, ONE_HOUR_ITEMS } from './constants'
 
@@ -30,15 +29,17 @@ export async function shouldNotify(item: string): Promise<boolean> {
 
   const timestamps = await readTimestamps()
   const now = Date.now()
-
   const lastSeen = timestamps[item] || 0
   const diffHours = (now - lastSeen) / (1000 * 60 * 60)
 
   if (THREE_HOUR_ITEMS.has(item) && diffHours < 3) return false
   if (ONE_HOUR_ITEMS.test(item) && diffHours < 1) return false
 
-  timestamps[item] = now
-  await writeTimestamps(timestamps)
-
   return true
+}
+
+export async function markItemNotified(item: string): Promise<void> {
+  const timestamps = await readTimestamps()
+  timestamps[item] = Date.now()
+  await writeTimestamps(timestamps)
 }

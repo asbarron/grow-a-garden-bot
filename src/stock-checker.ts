@@ -1,7 +1,6 @@
-// src/stock-checker.ts
 import { scrapeShopData } from './services/scraper'
 import { sendTelegramAlert } from './services/telegram'
-import { shouldNotify } from './utils/itemTracker'
+import { shouldNotify, markItemNotified } from './utils/itemTracker'
 
 export async function runStockChecker() {
   const flaggedItems = await scrapeShopData()
@@ -14,8 +13,15 @@ export async function runStockChecker() {
     if (await shouldNotify(item)) {
       const msg = `🌱 *${item}* is now in stock!`
       console.log('🚨 Sending alert:', msg)
-      await sendTelegramAlert(msg)
-      alertsSent++
+
+      try {
+        await sendTelegramAlert(msg)
+        await markItemNotified(item)
+        alertsSent++
+      } catch (err) {
+        console.error(`❌ Failed to send alert for ${item}:`, err)
+      }
+
     } else {
       console.log(`⏳ Skipping recently seen item: ${item}`)
     }
