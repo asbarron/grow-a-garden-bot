@@ -36,7 +36,11 @@ jobs:
           key: item-timestamps-cache
 
       - name: Ensure cache directory exists
-        run: mkdir -p cache && touch cache/itemTimestamps.json
+        run: |
+          mkdir -p cache
+          if [ ! -f cache/itemTimestamps.json ] || [ ! -s cache/itemTimestamps.json ]; then
+            echo '{}' > cache/itemTimestamps.json
+          fi
 
       - name: Run container with cache mounted
         run: |

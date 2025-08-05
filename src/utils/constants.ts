@@ -15,4 +15,4 @@ export const FOUR_HOUR_ITEMS = new Set([
 export const ONE_HOUR_ITEMS = /egg/i
 
 // Path to cached JSON file for timestamps
-export const ITEM_TIMESTAMP_FILE = './cache/itemTimestamps.json'
+export const ITEM_TIMESTAMP_FILE = process.env.ITEM_TIMESTAMP_FILE || './cache/itemTimestamps.json'
