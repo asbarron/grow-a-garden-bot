@@ -1,6 +1,6 @@
 import { scrapeShopData } from './services/scraper'
 import { sendTelegramAlert } from './services/telegram'
-import { shouldNotify, markItemNotified } from './utils/itemTracker'
+import { shouldNotify } from './utils/itemTracker'
 
 export async function runStockChecker() {
   const flaggedItems = await scrapeShopData()
@@ -16,7 +16,6 @@ export async function runStockChecker() {
 
       try {
         await sendTelegramAlert(msg)
-        await markItemNotified(item)
         alertsSent++
       } catch (err) {
         console.error(`❌ Failed to send alert for ${item}:`, err)

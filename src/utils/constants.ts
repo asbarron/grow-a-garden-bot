@@ -5,7 +5,7 @@ export const FLAG_KEYWORDS = (process.env.FLAG_KEYWORDS || '')
   .map((keyword) => keyword.trim())
 
 // Explicitly named items lasting 3 hours
-export const THREE_HOUR_ITEMS = new Set([
+export const FOUR_HOUR_ITEMS = new Set([
   'Flat Canopy', 'Curved Canopy', 'Log', 'Large Wood Flooring',
   'Mini TV', 'Small Wood Arbour', 'Lamp Post', 'Frog Fountain',
   'Large Wood Arbour', 'Viney Ring Walkway'
