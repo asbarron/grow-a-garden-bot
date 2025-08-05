@@ -26,7 +26,7 @@ jobs:
           echo "TARGET_URL=${{ secrets.TARGET_URL }}" >> .env
           echo "FLAG_KEYWORDS=${{ secrets.FLAG_KEYWORDS }}" >> .env
           echo "TELEGRAM_TOKEN=${{ secrets.TELEGRAM_TOKEN }}" >> .env
-          echo "TELEGRAM_CHAT_ID=${{ secrets.CHAT_ID }}" >> .env
+          echo "CHAT_ID=${{ secrets.CHAT_ID }}" >> .env
 
       - name: Restore item timestamp cache
         uses: actions/cache@v4
