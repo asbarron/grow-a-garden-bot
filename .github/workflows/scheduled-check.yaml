@@ -30,6 +30,7 @@ jobs:
 
       - name: Restore item timestamp cache
         uses: actions/cache@v4
+        id: cache
         with:
           path: cache
           key: item-timestamps-cache
@@ -44,6 +45,12 @@ jobs:
             --env-file .env \
             -v "$(pwd)/cache:/app/cache" \
             ghcr.io/asbarron/grow-a-garden-bot:latest
+      
+      - name: Save item timestamp cache
+        uses: actions/cache@v4
+        with:
+          path: cache
+          key: item-timestamps-cache
       
       - name: Upload itemTimestamps.json as artifact
         uses: actions/upload-artifact@v4
